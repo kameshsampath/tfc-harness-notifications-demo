@@ -1,11 +1,12 @@
-output "region" {
-  value       = var.region
-  description = "GCloud Region"
+output "gcp_region" {
+  value       = var.gcp_region
+  description = "Google Cloud Region"
 }
 
-output "project_id" {
-  value       = var.project_id
-  description = "GCloud Project ID"
+output "gcp_project" {
+  value       = var.gcp_project
+  description = "Google Cloud Project ID"
+  sensitive   = true
 }
 
 output "zone" {
@@ -26,6 +27,7 @@ output "delegate_name" {
 output "vm_ssh_user" {
   value       = var.vm_ssh_user
   description = "The SSH username to login into VM"
+  sensitive   = true
 }
 
 output "vm_external_ip" {

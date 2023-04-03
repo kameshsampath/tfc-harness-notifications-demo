@@ -12,7 +12,7 @@ resource "null_resource" "provision_delegate_vm" {
       type        = "ssh"
       host        = google_compute_instance.delegate_vm.network_interface.0.access_config.0.nat_ip
       user        = var.vm_ssh_user
-      private_key = local.vm_user_ssh_private_key
+      private_key = var.vm_ssh_private_key
       agent       = "false"
     }
   }
@@ -24,7 +24,7 @@ resource "null_resource" "provision_delegate_vm" {
       type        = "ssh"
       host        = google_compute_instance.delegate_vm.network_interface.0.access_config.0.nat_ip
       user        = var.vm_ssh_user
-      private_key = local.vm_user_ssh_private_key
+      private_key = var.vm_ssh_private_key
       agent       = "false"
     }
   }
@@ -47,7 +47,7 @@ resource "null_resource" "start_stop_delegate" {
       type        = "ssh"
       host        = google_compute_instance.delegate_vm.network_interface.0.access_config.0.nat_ip
       user        = var.vm_ssh_user
-      private_key = local.vm_user_ssh_private_key
+      private_key = var.vm_ssh_private_key
       agent       = "false"
     }
   }

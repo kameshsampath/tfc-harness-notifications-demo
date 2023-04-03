@@ -1,11 +1,6 @@
-locals {
-  vm_user_ssh_pub_key     = file("${path.module}/.keys/delegate_id_rsa.pub")
-  vm_user_ssh_private_key = file("${path.module}/.keys/delegate_id_rsa")
-}
-
 # This is used to set local variable google_zone.
 data "google_compute_zones" "available" {
-  region = var.region
+  region = var.gcp_region
 }
 
 resource "random_shuffle" "az" {
@@ -53,7 +48,7 @@ resource "google_compute_instance" "delegate_vm" {
 
   metadata = {
     ssh-keys = <<EOT
-${var.vm_ssh_user}:${local.vm_user_ssh_pub_key}
+${var.vm_ssh_user}:${var.vm_ssh_public_key}
 EOT
   }
 
@@ -83,7 +78,7 @@ resource "local_file" "drone_builder_pool" {
     poolName    = "${var.drone_builder_pool_name}"
     poolCount   = "${var.drone_builder_pool_count}"
     poolLimit   = "${var.drone_builder_pool_limit}"
-    project     = "${var.project_id}"
+    project     = "${var.gcp_project}"
     vmImage     = "${var.drone_builder_image}"
     machineType = "${var.drone_builder_machine_type}"
     zone        = "${local.runner_zone}"

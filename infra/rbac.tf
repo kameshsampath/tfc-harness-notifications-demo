@@ -17,7 +17,7 @@ resource "google_project_iam_custom_role" "compute_networks_custom_role" {
 
 resource "google_project_iam_binding" "drone_runner_sa_roles" {
   for_each = toset(local.drone_runner_sa_roles)
-  project  = var.project_id
+  project  = var.gcp_project
   role     = each.key
   members = [
     google_service_account.delegate_sa.member,
@@ -25,7 +25,7 @@ resource "google_project_iam_binding" "drone_runner_sa_roles" {
 }
 
 resource "google_project_iam_binding" "drone_runner_sa_network_roles" {
-  project = var.project_id
+  project = var.gcp_project
   role    = google_project_iam_custom_role.compute_networks_custom_role.id
   members = [
     google_service_account.delegate_sa.member,

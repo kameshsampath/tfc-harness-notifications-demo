@@ -1,6 +1,6 @@
 provider "google" {
-  project = var.project_id
-  region  = var.region
+  project = var.gcp_project
+  region  = var.gcp_region
 }
 
 # VPC which will be used by the Delegate and Builder VMs
@@ -12,7 +12,7 @@ resource "google_compute_network" "delegate_vpc" {
 # Subnet used to allocate ips for all Delegate VMS
 resource "google_compute_subnetwork" "delegate_subnet" {
   name          = "${var.vm_name}-vpc-subnet"
-  region        = var.region
+  region        = var.gcp_region
   network       = google_compute_network.delegate_vpc.name
   ip_cidr_range = "10.10.0.0/24"
 
@@ -26,7 +26,7 @@ resource "google_compute_subnetwork" "delegate_subnet" {
 # Subnet used to allocate IP for all builder VMs
 resource "google_compute_subnetwork" "delegate_builder_subnet" {
   name          = "${var.vm_name}-vpc-build-subnet"
-  region        = var.region
+  region        = var.gcp_region
   network       = google_compute_network.delegate_vpc.name
   ip_cidr_range = "10.20.0.0/24"
 
