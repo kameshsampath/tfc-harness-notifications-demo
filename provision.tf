@@ -34,10 +34,10 @@ resource "null_resource" "provision_delegate_vm" {
 resource "null_resource" "start_stop_delegate" {
 
   triggers = {
-    action = var.stop_harness_delegate
+    action        = var.stop_harness_delegate
     config_update = var.update_runner_config
   }
-  
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/${var.vm_ssh_user}/run.sh",

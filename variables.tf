@@ -1,6 +1,6 @@
 variable "gcp_project" {
   description = "project id"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "gcp_region" {
@@ -16,13 +16,13 @@ variable "vm_name" {
 variable "vm_ssh_user" {
   description = "The SSH user for the VM. Defaults to the system user."
   type        = string
-  sensitive = true
+  sensitive   = true
 }
 
 variable "vm_ssh_private_key" {
   description = "The SSH user private key."
   type        = string
-  sensitive = true
+  sensitive   = true
 }
 
 variable "vm_ssh_public_key" {
