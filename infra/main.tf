@@ -73,7 +73,7 @@ EOS
 
 ## pool.yml
 resource "local_file" "drone_builder_pool" {
-  content = templatefile("${path.module}/templates/pool.tfpl", {
+  content = templatefile("${path.module}/infra/templates/pool.tfpl", {
     home        = "/home/${var.vm_ssh_user}/runner"
     poolName    = "${var.drone_builder_pool_name}"
     poolCount   = "${var.drone_builder_pool_count}"
@@ -85,13 +85,13 @@ resource "local_file" "drone_builder_pool" {
     network     = "${google_compute_network.delegate_vpc.id}"
     subNetwork  = "${google_compute_subnetwork.delegate_builder_subnet.id}"
   })
-  filename        = "${path.module}/runner/pool.yml"
+  filename        = "${path.module}/infra/runner/pool.yml"
   file_permission = "0700"
 }
 
 ## docker-compose.yml
 resource "local_file" "delegate_runner" {
-  content = templatefile("${path.module}/templates/docker-compose.tfpl", {
+  content = templatefile("${path.module}/infra/templates/docker-compose.tfpl", {
     runnerHome           = "/home/${var.vm_ssh_user}/runner"
     delegateCPU          = "${var.harness_delegate_cpu}"
     delegateMemory       = "${var.harness_delegate_memory}"
@@ -100,16 +100,16 @@ resource "local_file" "delegate_runner" {
     harnessDelegateToken = "${var.harness_delegate_token}"
     harnessDelegateName  = "${var.harness_delegate_name}"
   })
-  filename        = "${path.module}/runner/docker-compose.yml"
+  filename        = "${path.module}/infra/runner/docker-compose.yml"
   file_permission = "0700"
 }
 
 ## .env that will be used by the delegate/runner
 resource "local_file" "delegate_env" {
-  content = templatefile("${path.module}/templates/.env.tfpl", {
+  content = templatefile("${path.module}/infra/templates/.env.tfpl", {
     droneDebugEnable = "${var.drone_debug_enable}"
     droneTraceEnable = "${var.drone_trace_enable}"
   })
-  filename        = "${path.module}/runner/.env"
+  filename        = "${path.module}/infra/runner/.env"
   file_permission = "0700"
 }

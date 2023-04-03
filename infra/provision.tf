@@ -6,7 +6,7 @@ resource "null_resource" "provision_delegate_vm" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/runner"
+    source      = "${path.module}/infra/runner"
     destination = "/home/${var.vm_ssh_user}"
     connection {
       type        = "ssh"
@@ -18,7 +18,7 @@ resource "null_resource" "provision_delegate_vm" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/scripts/run.sh"
+    source      = "${path.module}/infra/scripts/run.sh"
     destination = "/home/${var.vm_ssh_user}/run.sh"
     connection {
       type        = "ssh"
