@@ -1,0 +1,23 @@
+version: "1"
+instances:
+  - name: ${poolName}
+    default: true
+    type: google
+    pool: ${poolCount}
+    limit: ${poolLimit}
+    platform:
+      os: linux
+      arch: amd64
+    spec:
+      account:
+        project_id: ${project}
+        json_path: "/runner/sa.json"
+      image: ${vmImage}
+      network: ${network}
+      subnetwork: ${subNetwork}
+      machine_type: ${machineType}
+      private_ip: true
+      tags:
+       - builder
+      zone:
+        - ${zone}
